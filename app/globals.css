@@ -25,3 +25,17 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.myHead{
+  color: #54595F;
+  font-family: "Montserrat", Sans-serif;
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.myP{
+  color: #54595F;
+  font-family: "Montserrat", Sans-serif;
+    font-size: 20px; 
+}
