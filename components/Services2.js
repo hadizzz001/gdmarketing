@@ -67,8 +67,8 @@ const ServicesSection = () => {
             >
               <Box
                 sx={{
-                  width: 380,
-                  height: 380,
+                  width: 280,
+                  height: 280,
                   borderRadius: "50%",
                   backgroundColor: "#044877",
                   color: "white",

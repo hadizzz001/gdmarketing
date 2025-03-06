@@ -16,7 +16,7 @@ const About = () => {
         className="md:w-1/2 text-center"
         style={{ textAlign: "left" }}
       >
-        <h1 className="myHead">GD Marketing Group</h1>
+        <h1 className="lg:mt-[100px] myHead">GD Marketing Group</h1>
         <h5 className="myHead">About us</h5>
         <p className="mt-2 myP">
           Founded in 1992, GD Marketing Group has established itself as a
@@ -39,7 +39,7 @@ const About = () => {
           alt="Description"
           width={500}
           height={300}
-          className="w-full h-auto"
+          className="mt-[100px] w-full h-auto"
         />
       </motion.div>
     </div>

@@ -11,7 +11,7 @@ export default function Home() {
     <>
  
       
-      <Carousel />
+      
       <About />  
       <Services />
       <HomeOther />
