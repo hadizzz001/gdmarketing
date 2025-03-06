@@ -10,7 +10,6 @@ const Section = () => {
   const handleScroll = () => {
     if (sectionRef.current) {
       const rect = sectionRef.current.getBoundingClientRect();
-      // Check if the section is in the viewport (with a 10% threshold)
       if (rect.top <= window.innerHeight * 0.9) {
         setIsInView(true);
       } else {
@@ -20,13 +19,8 @@ const Section = () => {
   };
 
   useEffect(() => {
-    // Initially check on mount
     handleScroll();
-
-    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
-
-    // Clean up event listener on unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -42,8 +36,7 @@ const Section = () => {
 
   return (
     <div className="section-container" style={{ backgroundColor: '#044877', color: '#fff', minHeight: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-     
-
+      
       {/* Contact Us Section */}
       <motion.section
         className="contact-us"
@@ -52,7 +45,7 @@ const Section = () => {
         transition={{ duration: 1, ease: 'easeInOut' }}
         ref={sectionRef}
         style={{
-          backgroundColor: 'transparent', // Transparent background
+          backgroundColor: 'transparent',
           color: '#fff',
           textAlign: 'center',
           maxWidth: '800px',
@@ -79,9 +72,17 @@ const Section = () => {
           >
             <p>📞 Middle East: +961 81 001300</p>
           </motion.div>
+          <motion.div
+            className="email"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 1 : 0 }}
+            transition={{ delay: 0.9, duration: 1.2, ease: 'easeOut' }}
+            style={{ marginTop: '10px' }}
+          >
+            <p>📧 Email: <a href="mailto:gabdallah@gdmarketing.net" style={{ color: '#fff', textDecoration: 'underline' }}>gabdallah@gdmarketing.net</a></p>
+          </motion.div>
         </div>
         <p>© {new Date().getFullYear()} GD Marketing Group</p>
-
       </motion.section>
     </div>
   );
