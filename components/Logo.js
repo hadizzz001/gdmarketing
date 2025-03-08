@@ -6,8 +6,8 @@ const Logo = () => {
       <img
         src="https://res.cloudinary.com/dgkipuarc/image/upload/v1741181949/it6kszf5yydjw2jqsmki.jpg"
         alt="Logo"
-        width={80}
-        height={80}
+        width={100}
+        height={100}
         
         className="m-5 object-cover"
       />

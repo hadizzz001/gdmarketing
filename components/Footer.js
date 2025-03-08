@@ -1,4 +1,4 @@
-"use client";
+"use client"; 
 import { motion, useAnimation } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 
@@ -80,6 +80,15 @@ const Section = () => {
             style={{ marginTop: '10px' }}
           >
             <p>📧 Email: <a href="mailto:gabdallah@gdmarketing.net" style={{ color: '#fff', textDecoration: 'underline' }}>gabdallah@gdmarketing.net</a></p>
+          </motion.div>
+          <motion.div
+            className="website"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 1 : 0 }}
+            transition={{ delay: 1.1, duration: 1.2, ease: 'easeOut' }}
+            style={{ marginTop: '10px' }}
+          >
+            <p>🌐 Website: <a href="https://www.gdmarketing.net" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'underline' }}>www.gdmarketing.net</a></p>
           </motion.div>
         </div>
         <p>© {new Date().getFullYear()} GD Marketing Group</p>

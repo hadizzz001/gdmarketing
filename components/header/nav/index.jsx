@@ -19,6 +19,10 @@ const navItems = [
     title: "Fintech & Leasing",
     href: "/fint",
   }, 
+  {
+    title: "Hospitals & Military",
+    href: "/hos",
+  }, 
 ]
 
 export default function index() {
