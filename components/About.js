@@ -1,17 +1,14 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { triggerOnce: true, margin: "-100px" });
-
   return (
-    <div ref={ref} className="flex flex-col-reverse md:flex-row items-center md:items-start gap-6 p-6">
+    <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-6 p-6">
       {/* Text Section - Fades Down */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="md:w-1/2 text-center"
         style={{ textAlign: "left" }}
@@ -30,8 +27,8 @@ const About = () => {
       {/* Image Section - Fades Up */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }} // Slight delay for a staggered effect
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         className="md:w-1/2"
       >
         <img
