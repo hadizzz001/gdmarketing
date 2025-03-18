@@ -1,44 +1,63 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
+'use client';
+import React, { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
 
 const About = () => {
+  const [data, setData] = useState(null);
+  const textRef = useRef(null);
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("api/home");
+        const result = await response.json();
+        setData(result[0]); 
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      gsap.fromTo(
+        textRef.current,
+        { opacity: 0, y: -50 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        imageRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.2 }
+      );
+    }
+  }, [data]);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-6 p-6">
+    <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-6 p-6 ">
       {/* Text Section - Fades Down */}
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="md:w-1/2 text-center"
-        style={{ textAlign: "left" }}
-      >
-        <h1 className="lg:mt-[100px] myHead">GD Marketing Group</h1>
-        <h5 className="myHead">About us</h5>
-        <p className="mt-2 myP">
-          Founded in 1992, GD Marketing Group has established itself as a
-          trusted leader in business development across the Middle East and
-          North America. Headquartered in Beirut, we have navigated evolving
-          market landscapes with resilience, continuously delivering
-          best-in-class and tailored solutions across diverse industries.
-        </p>
-      </motion.div>
+      <div ref={textRef} className="md:w-1/2 text-left md:mt-[150px]"> 
+        <p className="mt-2 myP" dangerouslySetInnerHTML={{ __html: data.description }} />
+      </div>
 
       {/* Image Section - Fades Up */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-        className="md:w-1/2"
-      >
+      <div ref={imageRef} className="md:w-1/2  md:mt-[100px]">
         <img
-          src="https://res.cloudinary.com/dgkipuarc/image/upload/v1741171225/dyfarjeedvxcvwww7din.jpg"
+          src={data.img[0]} 
           alt="Description"
           width={500}
           height={300}
           className="mt-[100px] w-full h-auto"
         />
-      </motion.div>
+      </div>
     </div>
   );
 };

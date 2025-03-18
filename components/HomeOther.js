@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 const Section = () => {
   const [isInView, setIsInView] = useState(false);
+  const [desc, setDesc] = useState(''); // State for the description
   const sectionRef = useRef(null);
   const controls = useAnimation();
 
@@ -40,8 +41,20 @@ const Section = () => {
     }
   }, [isInView, controls]);
 
+  // Fetch data on component mount
+  useEffect(() => {
+    fetch('api/home')
+      .then(response => response.json())
+      .then(data => {
+        if (data[0] && data[0].last) {
+          setDesc(data[0].last); // Set the description from the fetched data
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
   return (
-    <div className="section-container" style={{  minHeight: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+    <div className="section-container" style={{ minHeight: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       {/* Our Vision Section */}
       <motion.section
         className="our-vision"
@@ -50,20 +63,14 @@ const Section = () => {
         transition={{ duration: 1.2, ease: 'easeOut' }}
         ref={sectionRef}
         style={{ textAlign: 'center', maxWidth: '800px', padding: '20px' }}
-      >
-        <h2 className='myHead'>Our Vision</h2>
-        <p className='myP'>
-          At GD Marketing Group, we believe in delivering comprehensive, 360-degree
-          solutions that function both independently and as part of a broader strategic
-          approach. By partnering with top industry experts, we ensure that our clients
-          receive world-class market insights and commercial expertise. Our vision is to
-          integrate global expertise with local knowledge, providing impactful solutions
-          where they are needed most.
-        </p>
+      > 
+        <p
+          className="desc"
+          dangerouslySetInnerHTML={{ __html: desc }} // Render fetched description
+        />
       </motion.section>
 
       <hr />
- 
     </div>
   );
 };
