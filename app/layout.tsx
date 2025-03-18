@@ -19,7 +19,20 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "GD Marketing Group",
   description: "GD Marketing Group",
+  openGraph: {
+    title: "GD Marketing Group",
+    description: "GD Marketing Group",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dgkipuarc/image/upload/v1741181949/it6kszf5yydjw2jqsmki.jpg",
+        width: 1200,
+        height: 630,
+        alt: "GD Marketing Group",
+      },
+    ],
+  },
 };
+
 
 export default function RootLayout({
   children,
