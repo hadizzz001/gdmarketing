@@ -1,6 +1,4 @@
-import Image from "next/image";
  
-import Carousel from "../components/Carousel";
 import Services from "../components/Services";
 import About from "../components/About";
 import HomeOther from "../components/HomeOther";

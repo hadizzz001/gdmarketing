@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Container, Grid } from "@mui/material";
-import axios from "axios";
 
 const ServicesSection = () => {
   const [services, setServices] = useState([]);
@@ -10,17 +9,25 @@ const ServicesSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const servicesResponse = await axios.get("/api/products");
-        const homeResponse = await axios.get("/api/home");
+        const servicesResponse = await fetch("/api/products");
+        const homeResponse = await fetch("/api/home");
 
-        const servicesData = servicesResponse.data.map((service) => ({
-          id: service._id,
-          title: service.title,
-          description: service.subtitle,
-        }));
+        if (!servicesResponse.ok || !homeResponse.ok) {
+          throw new Error("Failed to fetch data");
+        }
 
-        setServices(servicesData);
-        setHomeDescription(homeResponse.data.sdescription);
+        const servicesData = await servicesResponse.json();
+        const homeData = await homeResponse.json();
+
+        setServices(
+          servicesData.map((service) => ({
+            id: service._id,
+            title: service.title,
+            description: service.subtitle,
+          }))
+        );
+
+        setHomeDescription(homeData.sdescription);
       } catch (error) {
         console.error("Error fetching data", error);
       }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 const About = () => {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,43 +13,49 @@ const About = () => {
         setData(result[0]); 
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-6 p-6 ">
-      {/* Text Section - Fades In */}
-      <div
-        style={{
-          animation: "fadeIn 0.8s ease-out"
-        }}
-        className="md:w-1/2 text-left md:mt-[150px]"
-      > 
-        <p className="mt-2 myP" dangerouslySetInnerHTML={{ __html: data.description }} />
-      </div>
+    <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-6 p-6">
+      {loading ? (
+        <p className="text-center">Loading...</p>
+      ) : !data ? (
+        <p className="text-center">No data available.</p>
+      ) : (
+        <>
+          {/* Text Section */}
+          <div
+            style={{ animation: "fadeIn 0.8s ease-out" }}
+            className="md:w-1/2 text-left md:mt-[150px]"
+          > 
+            {data.description && (
+              <p className="mt-2 myP" dangerouslySetInnerHTML={{ __html: data.description }} />
+            )}
+          </div>
 
-      {/* Image Section - Fades In */}
-      <div
-        style={{
-          animation: "fadeIn 0.8s ease-out 0.2s forwards"
-        }}
-        className="md:w-1/2 md:mt-[100px]"
-      >
-        <img
-          src={data.img[0]} 
-          alt="Description"
-          width={500}
-          height={300}
-          className="mt-[100px] w-full h-auto"
-        />
-      </div>
+          {/* Image Section */}
+          <div
+            style={{ animation: "fadeIn 0.8s ease-out 0.2s forwards" }}
+            className="md:w-1/2 md:mt-[100px]"
+          >
+            {data.img?.length > 0 && (
+              <img
+                src={data.img[0]} 
+                alt="Description"
+                width={500}
+                height={300}
+                className="mt-[100px] w-full h-auto"
+              />
+            )}
+          </div>
+        </>
+      )}
 
       {/* Inline CSS Keyframes */}
       <style>{`
