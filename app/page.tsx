@@ -19,27 +19,7 @@ export default function Home() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <link
-        rel="stylesheet"
-        id="widget-nav-menu-css"
-        href="wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css@ver=3.24.4.css"
-        media="all"
-      />
+ 
 
     </>
 

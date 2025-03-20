@@ -1,11 +1,8 @@
 'use client';
-import React, { useEffect, useState, useRef } from "react";
-import gsap from "gsap";
+import React, { useEffect, useState } from "react";
 
 const About = () => {
   const [data, setData] = useState(null);
-  const textRef = useRef(null);
-  const imageRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,35 +18,29 @@ const About = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (data) {
-      gsap.fromTo(
-        textRef.current,
-        { opacity: 0, y: -50 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
-      );
-
-      gsap.fromTo(
-        imageRef.current,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.2 }
-      );
-    }
-  }, [data]);
-
   if (!data) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-6 p-6 ">
-      {/* Text Section - Fades Down */}
-      <div ref={textRef} className="md:w-1/2 text-left md:mt-[150px]"> 
+      {/* Text Section - Fades In */}
+      <div
+        style={{
+          animation: "fadeIn 0.8s ease-out"
+        }}
+        className="md:w-1/2 text-left md:mt-[150px]"
+      > 
         <p className="mt-2 myP" dangerouslySetInnerHTML={{ __html: data.description }} />
       </div>
 
-      {/* Image Section - Fades Up */}
-      <div ref={imageRef} className="md:w-1/2  md:mt-[100px]">
+      {/* Image Section - Fades In */}
+      <div
+        style={{
+          animation: "fadeIn 0.8s ease-out 0.2s forwards"
+        }}
+        className="md:w-1/2 md:mt-[100px]"
+      >
         <img
           src={data.img[0]} 
           alt="Description"
@@ -58,6 +49,14 @@ const About = () => {
           className="mt-[100px] w-full h-auto"
         />
       </div>
+
+      {/* Inline CSS Keyframes */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 };
